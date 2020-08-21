@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job-scheduling-data
+	xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
+	version="1.8">	
+<!-- 	<schedule> -->
+<!-- 		<job> -->
+<!-- 			<name>getDataJob</name> -->
+<!-- 			<group>DATAJOB_GROUP</group> -->
+<!-- 			<description>get db data</description> -->
+<!-- 			<job-class>com.quart.simple.job.GetDataJob</job-class> -->
+<!-- 		</job> -->
+<!-- 		<trigger> -->
+<!-- 		<cron> -->
+<!-- 				<name>getDataTrigger</name> -->
+<!-- 				<group>DATATRIGGER_GROUP</group> -->
+<!-- 				<job-name>getDataJob</job-name> -->
+<!-- 				<job-group>DATAJOB_GROUP</job-group> -->
+<!-- 				<cron-expression>* * * ? * *</cron-expression> -->
+<!-- 				</cron> -->
+<!-- 		</trigger> -->
+<!-- 	</schedule> -->
+	<schedule>
+		<job>
+			<name>BATCH-02</name>
+			<group>JOB_GROUP</group>
+			<description>find db data</description>
+			<job-class>com.quart.simple.job.FindDbDataJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>findDataTrigger</name>
+				<group>findDataTrigger</group>
+				<job-name>BATCH-02</job-name>
+				<job-group>JOB_GROUP</job-group>
+<!-- 				<cron-expression>*/5 * * ? * *</cron-expression>每5秒 -->
+				<cron-expression>5 * * ? * *</cron-expression><!-- 第5秒 -->
+			</cron>
+		</trigger>
+	</schedule>
+</job-scheduling-data>
