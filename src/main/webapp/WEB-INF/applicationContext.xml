@@ -14,8 +14,12 @@
         http://www.springframework.org/schema/tx 
         http://www.springframework.org/schema/tx/spring-tx.xsd">
     <context:annotation-config />
-    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-    	<property name="applicationContextSchedulerContextKey" value="applicationContext" />
+    <bean id="springContext" class="com.quart.simple.job.config.ApplicationConfig" lazy-init="false"></bean>
+	 
+	<bean id="adaptableJobFactory" class="com.quart.simple.job.MyJobFactory"></bean>
+	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	   <property name="jobFactory" ref="adaptableJobFactory" />
+	   <property name="configLocation" value="classpath:quartz.properties"/>
 	</bean>
 <!--     <context:component-scan base-package="com.howtodoinjava.controller" /> -->
 <!--     <bean id="messageSource" -->
@@ -23,20 +27,18 @@
 <!--         <property name="basename" value="classpath:messages"></property> -->
 <!--         <property name="defaultEncoding" value="UTF-8"></property> -->
 <!--     </bean> -->
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="jdbc.properties">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="classpath:jdbc.properties">
 <!--     	<property name="location"> -->
 <!--     		<list> -->
 <!--     			<value>WEB-INF/classes/jdbc.properties</value> -->
 <!--     		</list> -->
 <!--     	</property> -->
     </bean>
-    <bean id="dataSource"
-        class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
         p:driverClassName="${jdbc.driverClassName}"
         p:url="${jdbc.databaseurl}" p:username="${jdbc.username}"
         p:password="${jdbc.password}"></bean>
-    <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
