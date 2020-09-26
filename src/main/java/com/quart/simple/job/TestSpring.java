@@ -17,5 +17,7 @@ public class TestSpring {
 		SysParmService service = ctx.getBean(SysParmService.class);
 		System.out.println(service.findAll().size());
 		
+		System.out.println("for test git conflict");
+		
 	}
 }
