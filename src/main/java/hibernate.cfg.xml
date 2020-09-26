@@ -6,5 +6,7 @@
 <hibernate-configuration>
     <session-factory>
         <mapping class="com.quart.simple.job.model.SysParm"></mapping>
+        <mapping class="com.quart.simple.job.model.Menu"></mapping>
     </session-factory>
+    <!-- test conflicts -->
 </hibernate-configuration>
